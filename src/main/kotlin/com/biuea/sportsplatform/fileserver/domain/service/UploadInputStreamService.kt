@@ -9,6 +9,7 @@ import com.biuea.sportsplatform.fileserver.domain.usecase.UploadObjectUseCase
 import com.biuea.sportsplatform.fileserver.domain.utils.FileUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.io.InputStream
 
 @Service
 class UploadInputStreamService(

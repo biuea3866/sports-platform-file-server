@@ -1,6 +1,7 @@
 package com.biuea.sportsplatform.fileserver.domain.model
 
 import com.biuea.sportsplatform.fileserver.domain.enums.FileStorageAccessStatus
+import com.biuea.sportsplatform.fileserver.domain.utils.KeyGenerator
 import java.time.ZonedDateTime
 
 data class FileStorageAccessor(
@@ -26,6 +27,25 @@ data class FileStorageAccessor(
             FileStorageAccessStatus.FORBIDDEN -> {
                 throw IllegalArgumentException("SDK Key is forbidden")
             }
+        }
+    }
+
+    companion object {
+        fun create(
+            email: String,
+            userId: Long,
+            expirationDate: ZonedDateTime
+        ): FileStorageAccessor {
+            return FileStorageAccessor(
+                id = 0,
+                userId = userId,
+                email = email,
+                expirationDate = expirationDate,
+                sdkKey = KeyGenerator.generateSdkKey(),
+                status = FileStorageAccessStatus.VALID,
+                createDate = ZonedDateTime.now(),
+                updateDate = ZonedDateTime.now()
+            )
         }
     }
 }

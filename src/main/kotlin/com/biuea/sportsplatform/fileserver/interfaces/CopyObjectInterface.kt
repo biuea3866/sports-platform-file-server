@@ -1,7 +1,7 @@
 package com.biuea.sportsplatform.fileserver.interfaces
 
-import com.biuea.sportsplatform.fileserver.interfaces.request.CommonRequestBuilder
+import com.biuea.sportsplatform.fileserver.interfaces.request.CommonFileStorageAccessorRequest
 
 interface CopyObjectInterface {
-    fun copyObject(request: CommonRequestBuilder<Unit>)
+    fun copyObject(request: CommonFileStorageAccessorRequest)
 }

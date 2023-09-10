@@ -1,24 +1,29 @@
 package com.biuea.sportsplatform.fileserver.interfaces
 
-import com.biuea.sportsplatform.fileserver.interfaces.request.CommonRequestBuilder
+import com.biuea.sportsplatform.fileserver.interfaces.request.CommonFileStorageAccessorRequest
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.io.InputStream
 
 interface UploadObjectInterface {
-    fun<I: InputStream> uploadObject(
-        builder: CommonRequestBuilder,
-        inputStream: I,
+    fun uploadObject(
+        builder: CommonFileStorageAccessorRequest,
+        inputStream: InputStream,
         size: Long
     )
 
-    fun<M: MultipartFile> uploadObject(
-        request: CommonRequestBuilder,
-        multipartFile: M
+    fun uploadObject(
+        request: CommonFileStorageAccessorRequest,
+        multipartFile: MultipartFile
     )
 
-    fun<F: File> uploadObject(
-        request: CommonRequestBuilder,
-        file: F
+    fun uploadObject(
+        request: CommonFileStorageAccessorRequest,
+        file: File
+    )
+
+    fun uploadObject(
+        request: CommonFileStorageAccessorRequest,
+        byteArray: ByteArray
     )
 }
