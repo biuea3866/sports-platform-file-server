@@ -19,7 +19,7 @@ class FileAccessorController(
 
     @PostMapping(
         value = ["/sdk/assign"],
-        produces = ["application/json; charset=utf-8"],
+        produces = ["application/json; charset=utf-8"]
     )
     fun assignSdkKey(
         @RequestBody @Valid request: AssignSdkKeyRequest
