@@ -1,24 +1,13 @@
 spring:
   datasource:
-    write:
-      jdbc-url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_NAME}?zeroDateTimeBehavior=convertToNull
-      username: ${MYSQL_USER}
-      password: ${MYSQL_PASSWORD}
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      maximum-pool-size: 10
-      minimum-idle: 20
-      max-lifetime: 598000
-      write.idle-timeout: 300000
-    read:
-      jdbc-url: jdbc:mysql://${MYSQL_HOST_RO}:3306/${MYSQL_NAME}?zeroDateTimeBehavior=convertToNull
-      username: ${MYSQL_USERNAME}
-      password: ${MYSQL_KEY}
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      connection-timeout: 5000
-      maximum-pool-size: 80
-      minimum-idle: 20
-      max-lifetime: 598000
-      idle-timeout: 300000
+    jdbc-url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_NAME}?zeroDateTimeBehavior=convertToNull
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maximum-pool-size: 10
+    minimum-idle: 20
+    max-lifetime: 598000
+    write.idle-timeout: 300000
   jpa:
     hibernate:
       naming:
