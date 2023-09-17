@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: stage
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_NAME}?zeroDateTimeBehavior=convertToNull
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    maximum-pool-size: 10
+  #    minimum-idle: 20
+  #    max-lifetime: 598000
+  #    write.idle-timeout: 300000
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: mysql
+    properties:
+      hibernate:
+        query:
+          plan_cache_max_size: 256
+          plan_parameter_metadata_max_size: 16
+        default_batch_fetch_size: 30
+        jdbc.time_zone: UTC
+# Env Settings
+server:
+  shutdown: graceful
+  port: 9000
+
+storage:
+  base-path: /home/sports-platform/file-storage

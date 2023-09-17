@@ -31,7 +31,7 @@ class FileAccessorController(
             data = assignSdkKeyInterface.assignSdkKey(
                 requestUserId = request.requestUserId,
                 requestUserEmail = request.requestUserEmail,
-                expirationDate = request.expirationDate
+                expirationDate = request.expirationDate,
             )
         )
     }

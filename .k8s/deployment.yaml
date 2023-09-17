@@ -3,50 +3,61 @@ kind: Deployment
 metadata:
   name: sports-platform-file-server
   labels:
+    app: sports-platform-file-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
       app: sports-platform-file-server
-  spec:
-    replicas: 1
-    selector:
-      matchLabels:
+  template:
+    metadata:
+      labels:
         app: sports-platform-file-server
-      template:
-        metadata:
-          labels:
-            app: sports-platform-file-server
-        spec:
-          containers:
-          - name: sports-platform-file-server
-            image: biuea/sports-platform-file-server
-            env:
-            - name: MYSQL_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config-dev
-                  key: MYSQL_HOST
-            - name: MYSQL_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config-dev
-                  key: MYSQL_NAME
-            - name: MYSQL_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config-dev
-                  key: MYSQL_USER
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: app-secret-dev
-                  key: MYSQL_PASSWORD
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: app-secret-dev
-                  key: MYSQL_ROOT_PASSWORD
-            - name: MYSQL_ROOT_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config-dev
-                  key: MYSQL_ROOT_HOST
-            ports:
-            - containerPort: 9000
+    spec:
+      nodeAffinity:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - sports-platform-dev
+      containers:
+      - name: sports-platform-file-server
+        # 이미지 환경에 따라 동적으로 변경
+        image: biuea/dev-sports-platform-file-server:latest
+        env:
+        # 우선 dev로 강제 고정
+        - name: SPRING_PROFILE_ACTIVE
+          value: dev
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config-dev
+              key: MYSQL_HOST
+        - name: MYSQL_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-config-dev
+              key: MYSQL_NAME
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: app-config-dev
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret-dev
+              key: MYSQL_PASSWORD
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret-dev
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_ROOT_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config-dev
+              key: MYSQL_ROOT_HOST
+        ports:
+        - containerPort: 9000

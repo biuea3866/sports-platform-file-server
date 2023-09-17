@@ -20,7 +20,7 @@ class AssignSdkKeyApplication(
         AssignSdkKeyCommand(
             requestUserId = requestUserId,
             requestUserEmail = requestUserEmail,
-            expirationDate = expirationDate
+            expirationDate = expirationDate,
         )
     )
 }
