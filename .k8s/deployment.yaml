@@ -25,6 +25,7 @@ spec:
       - name: sports-platform-file-server
         # 이미지 환경에 따라 동적으로 변경
         image: biuea/dev-sports-platform-file-server:latest
+        imagePullPolicy: Always
         env:
         # 우선 dev로 강제 고정
         - name: SPRING_PROFILE_ACTIVE
