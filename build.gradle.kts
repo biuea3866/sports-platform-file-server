@@ -10,10 +10,32 @@ plugins {
     id("org.jetbrains.kotlin.plugin.jpa") version "1.6.10"
     id("org.jetbrains.kotlin.plugin.noarg") version "1.6.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.10"
+    id("com.google.cloud.tools.jib") version "3.2.0"
 }
 
 group = "com.biuea.sportsplatform"
 version = "1.0.0"
+
+val env: String by project
+
+jib {
+    from {
+        image = "eclipse-temurin:11-jre"
+    }
+    to {
+        image = "biuea/sports-platform-file-server:latest"
+    }
+    container {
+        jvmFlags = listOf(
+            "-Xms512m",
+            "-Xmx1024m"
+        )
+
+        environment = mapOf(
+            "SPRING_PROFILES_ACTIVE" to "production"
+        )
+    }
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11

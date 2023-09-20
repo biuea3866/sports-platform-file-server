@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active:
+      - local
+    group:
+      dev:
+        - site-local
+        - db-local
+      stage:
+        - site-dev
+        - db-dev
+      production:
+        - site-production
+        - db-production
+    include:
+      - db
+      - my-service
+      - site
