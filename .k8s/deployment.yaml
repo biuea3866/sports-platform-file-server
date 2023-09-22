@@ -60,5 +60,10 @@ spec:
             configMapKeyRef:
               name: app-config-dev
               key: MYSQL_ROOT_HOST
+        - name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config-dev
+              key: MYSQL_ROOT_HOST
         ports:
         - containerPort: 9000

@@ -104,7 +104,7 @@ jobs:
 #              path: ./.k8s  # 애플리케이션 소스 경로
 #            project: default
 #            destination:
-#              server: ${{ steps.ngrok.outputs.url }}  # ngrok을 통한 외부 URL 사용
+#              server: https://kubernetes.default.svc  # ngrok을 통한 외부 URL 사용
 #              namespace: default
 #            syncPolicy:
 #              automated: {}
