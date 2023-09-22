@@ -101,7 +101,7 @@ dependencies {
     // MySQL Dependencies
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("mysql:mysql-connector-java:5.1.50")
 
     implementation(group = "org.apache.pdfbox", name = "pdfbox", version = "2.0.29")
 
