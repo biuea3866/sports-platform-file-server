@@ -32,7 +32,7 @@ jib {
         )
 
         environment = mapOf(
-            "SPRING_PROFILES_ACTIVE" to "production"
+            "SPRING_PROFILES_ACTIVE" to "dev"
         )
     }
 }

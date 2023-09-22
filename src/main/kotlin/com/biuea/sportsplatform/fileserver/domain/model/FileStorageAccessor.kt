@@ -1,6 +1,7 @@
 package com.biuea.sportsplatform.fileserver.domain.model
 
 import com.biuea.sportsplatform.fileserver.domain.enums.FileStorageAccessStatus
+import com.biuea.sportsplatform.fileserver.domain.enums.notAvailableStatus
 import com.biuea.sportsplatform.fileserver.domain.utils.KeyGenerator
 import java.time.ZonedDateTime
 
@@ -15,18 +16,12 @@ data class FileStorageAccessor(
     val updateDate: ZonedDateTime
 ) {
     fun checkAvailableSdkKey() {
-        if (createDate.isAfter(expirationDate)) {
+        if (this.createDate.isAfter(expirationDate)) {
             throw IllegalArgumentException("SDK Key is expired")
         }
 
-        when (this.status) {
-            FileStorageAccessStatus.VALID -> return
-            FileStorageAccessStatus.EXPIRED -> {
-                throw IllegalArgumentException("SDK Key is expired")
-            }
-            FileStorageAccessStatus.FORBIDDEN -> {
-                throw IllegalArgumentException("SDK Key is forbidden")
-            }
+        if (this.status.notAvailableStatus()) {
+            throw IllegalArgumentException("SDK Key is not available")
         }
     }
 
