@@ -55,15 +55,10 @@ spec:
             secretKeyRef:
               name: app-secret-dev
               key: MYSQL_ROOT_PASSWORD
-        - name: MYSQL_ROOT_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config-dev
-              key: MYSQL_ROOT_HOST
         - name: MYSQL_PORT
           valueFrom:
             configMapKeyRef:
               name: app-config-dev
-              key: MYSQL_ROOT_HOST
+              key: MYSQL_PORT
         ports:
         - containerPort: 9000
