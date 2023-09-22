@@ -49,63 +49,63 @@ jobs:
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2.1.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Pull Docker image
-        run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/dev-sports-platform-file-server:latest
-
-      - name: Install ngrok
-        run: |
-          curl -o /usr/local/bin/ngrok https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64
-          chmod +x /usr/local/bin/ngrok
-
-      - name: Start ngrok
-        run: |
-          ngrok http 8080 & # 8080 포트는 로컬에서 실행 중인 ArgoCD 포트로 변경하세요.
-
-      - name: Wait for ngrok to start
-        run: sleep 5
-
-      - name: Get ngrok public URL
-        id: ngrok
-        run: echo "::set-output name=url::$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
-
-      - name: Deploy to ArgoCD
-        run: |
-          kubectl apply --namespace=argo -f - <<EOF
-          apiVersion: argoproj.io/v1alpha1
-          kind: Application
-          metadata:
-            name: sports-platform-file-server-dev
-            namespace: argo
-          spec:
-            source:
-              targetRevision: HEAD
-              repoURL: https://github.com/biuea3866/sports-platform-file-server  # GitHub 리포지토리 URL
-              path: ./.k8s  # 애플리케이션 소스 경로
-            project: default
-            destination:
-              server: ${{ steps.ngrok.outputs.url }}  # ngrok을 통한 외부 URL 사용
-              namespace: default
-            syncPolicy:
-              automated: {}
-          EOF
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: '11'
+#          distribution: 'temurin'
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v2.1.0
+#        with:
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#
+#      - name: Pull Docker image
+#        run: |
+#          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/dev-sports-platform-file-server:latest
+#
+#      - name: Install ngrok
+#        run: |
+#          curl -o /usr/local/bin/ngrok https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64
+#          chmod +x /usr/local/bin/ngrok
+#
+#      - name: Start ngrok
+#        run: |
+#          ngrok http 8080 & # 8080 포트는 로컬에서 실행 중인 ArgoCD 포트로 변경하세요.
+#
+#      - name: Wait for ngrok to start
+#        run: sleep 5
+#
+#      - name: Get ngrok public URL
+#        id: ngrok
+#        run: echo "::set-output name=url::$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
+#
+#      - name: Deploy to ArgoCD
+#        run: |
+#          kubectl apply --namespace=argo -f - <<EOF
+#          apiVersion: argoproj.io/v1alpha1
+#          kind: Application
+#          metadata:
+#            name: sports-platform-file-server-dev
+#            namespace: argo
+#          spec:
+#            source:
+#              targetRevision: HEAD
+#              repoURL: https://github.com/biuea3866/sports-platform-file-server  # GitHub 리포지토리 URL
+#              path: ./.k8s  # 애플리케이션 소스 경로
+#            project: default
+#            destination:
+#              server: ${{ steps.ngrok.outputs.url }}  # ngrok을 통한 외부 URL 사용
+#              namespace: default
+#            syncPolicy:
+#              automated: {}
+#          EOF

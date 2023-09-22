@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: stage
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_NAME}?zeroDateTimeBehavior=convertToNull
     username: ${MYSQL_USER}
