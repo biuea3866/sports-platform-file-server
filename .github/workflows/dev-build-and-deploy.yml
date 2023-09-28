@@ -75,7 +75,7 @@ jobs:
 
       - name: Deploy to ArgoCD
         run: |
-          kubectl apply --namespace=argo -f - <<EOF
+          kubectl apply --namespace=argocd -f - <<EOF
           apiVersion: argoproj.io/v1alpha1
           kind: Application
           metadata:
