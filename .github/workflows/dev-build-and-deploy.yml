@@ -104,7 +104,7 @@ jobs:
               path: ./.k8s  # 애플리케이션 소스 경로
             project: default
             destination:
-              server: http://localhost:8080  # ngrok을 통한 외부 URL 사용
+              server: http://127.0.0.1:55686  # ngrok을 통한 외부 URL 사용
               namespace: default
             syncPolicy:
               automated: {}
