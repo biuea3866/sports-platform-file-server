@@ -73,22 +73,6 @@ jobs:
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/dev-sports-platform-file-server:latest
 
-      - name: Install ngrok
-        run: |
-          curl -o /usr/local/bin/ngrok https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64
-          chmod +x /usr/local/bin/ngrok
-
-      - name: Start ngrok
-        run: |
-          ngrok http 8080 & # 8080 포트는 로컬에서 실행 중인 ArgoCD 포트로 변경하세요.
-
-      - name: Wait for ngrok to start
-        run: sleep 5
-
-      - name: Get ngrok public URL
-        id: ngrok
-        run: echo "::set-output name=url::$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
-
       - name: Deploy to ArgoCD
         run: |
           kubectl apply --namespace=argo -f - <<EOF
