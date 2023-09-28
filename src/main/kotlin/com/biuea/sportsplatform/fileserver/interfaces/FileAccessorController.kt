@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -33,6 +34,17 @@ class FileAccessorController(
                 requestUserEmail = request.requestUserEmail,
                 expirationDate = request.expirationDate,
             )
+        )
+    }
+
+    @GetMapping(
+        value = ["health-check"],
+        produces = ["application/json; charset=utf-8"]
+    )
+    fun healthCheck(): CommonResponse<String> {
+        return CommonResponse.success(
+            code = HttpStatus.OK,
+            data = "File Server is running"
         )
     }
 }

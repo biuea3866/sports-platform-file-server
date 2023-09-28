@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?zeroDateTimeBehavior=convertToNull
-    username: ${MYSQL_USER}
+    username: ${MYSQL_ROOT_USER}
     password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    maximum-pool-size: 10

@@ -45,6 +45,11 @@ spec:
             configMapKeyRef:
               name: app-config-dev
               key: MYSQL_USER
+        - name: MYSQL_ROOT_USER
+          valueFrom:
+            configMapKeyRef:
+              name: app-config-dev
+              key: MYSQL_ROOT_USER
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
